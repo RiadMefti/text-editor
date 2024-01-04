@@ -7,6 +7,7 @@ import "@mantine/tiptap/styles.css";
 import { MantineProvider } from "@mantine/core";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TxtFileEdit from "./pages/TxtFileEdit";
+import PageWithPannel from "./components/PageWithPannel";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/txtFile",
-    element: <TxtFileEdit />,
+    element: <PageWithPannel page={<TxtFileEdit />} />,
   },
 ]);
 

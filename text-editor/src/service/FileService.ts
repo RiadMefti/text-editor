@@ -31,4 +31,30 @@ export async function saveTxtFile(file: TxtFile) {
     })
 
 }
+export async function listAllFilesDir() {
+    const selectDir = await dialog.open({
+        multiple: false,
+        directory: true,
+    });
+
+    if (selectDir) {
+        const entries = await fs.readDir(selectDir as string, { recursive: true });
+        const files = processEntries(entries);
+        console.log(files); // Log the list of all files and their children
+        return files;
+    }
+
+    function processEntries(entries: any): any[] {
+        let files: any[] = [];
+      
+        for (const entry of entries) {
+          if (entry.children) {
+            entry.children = processEntries(entry.children);
+          }
+          files.push(entry);
+        }
+      
+        return files;
+      }
+}
 

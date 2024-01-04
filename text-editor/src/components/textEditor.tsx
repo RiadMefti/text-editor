@@ -38,7 +38,7 @@ const TextEditor: FC<textEditorProps> = ({ path, content }) => {
 
   useHotkeys([["mod+s", save]]);
   return (
-    <div style={{ height: "100vh" }}>
+    <div style={{ height: "100vh", width:'100%' }}>
       <RichTextEditor editor={editor} style={{ height: "100%" }}>
         <RichTextEditor.Toolbar sticky>
           <RichTextEditor.ControlsGroup>
