@@ -6,6 +6,7 @@ import { openTxtFile } from "../service/FileService";
 import { useFileStore } from "../stores/FileStore";
 import { useNavigate } from "react-router-dom";
 import { useSidePannelStore } from "../stores/SidePannelStore";
+import { useWindowEvent } from "@mantine/hooks";
 const landingStyles: CSSProperties = {
   display: "flex",
   justifyContent: "center",
