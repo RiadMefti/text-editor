@@ -4,7 +4,6 @@
     "beforeBuildCommand": "npm run build",
     "devPath": "http://localhost:1420",
     "distDir": "../dist"
-
   },
   "package": {
     "productName": "text-editor",
@@ -27,9 +26,9 @@
       "identifier": "com.Riad-Text-Editor.dev",
       "icon": [
         "icons/32x32.png",
-        "icons/128x128.png", 
-        "icons/310x310.png"
-     
+        "icons/128x128.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
       ]
     },
     "security": {
