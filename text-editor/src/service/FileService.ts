@@ -22,6 +22,27 @@ export async function openTxtFile(): Promise<TxtFile | undefined> {
     }
 }
 
+export function FileExtension(file: string) {
+    const fileExtension = file.split('.').pop()
+    return fileExtension
+
+}
+
+export async function openFileFromPath(selectedFile: string): Promise<TxtFile | undefined> {
+
+
+
+    const content = await fs.readTextFile(selectedFile as string)
+    console.log(content)
+    return {
+        path: selectedFile as string,
+        content
+    } as TxtFile
+
+
+
+}
+
 export async function saveTxtFile(file: TxtFile) {
 
     if (!file) return
@@ -40,21 +61,24 @@ export async function listAllFilesDir() {
     if (selectDir) {
         const entries = await fs.readDir(selectDir as string, { recursive: true });
         const files = processEntries(entries);
-        console.log(files); // Log the list of all files and their children
-        return files;
+
+        return {
+            name: selectDir as string,
+            files
+        };
     }
 
     function processEntries(entries: any): any[] {
         let files: any[] = [];
-      
+
         for (const entry of entries) {
-          if (entry.children) {
-            entry.children = processEntries(entry.children);
-          }
-          files.push(entry);
+            if (entry.children) {
+                entry.children = processEntries(entry.children);
+            }
+            files.push(entry);
         }
-      
+
         return files;
-      }
+    }
 }
 

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { getHotkeyHandler, useHotkeys } from "@mantine/hooks";
 import { RichTextEditor, Link } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
@@ -10,12 +10,12 @@ import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
 import { TxtFile } from "../types/types";
 import { saveTxtFile } from "../service/FileService";
-interface textEditorProps {
-  path: string;
-  content: string;
-}
+import { useFileStore } from "../stores/FileStore";
+interface textEditorProps {}
 
-const TextEditor: FC<textEditorProps> = ({ path, content }) => {
+const TextEditor: FC<textEditorProps> = ({}) => {
+  const { selectedFile } = useFileStore();
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -26,19 +26,26 @@ const TextEditor: FC<textEditorProps> = ({ path, content }) => {
       Highlight,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
-    content,
+    content: selectedFile?.content,
   });
   const save = async () => {
+    if (!selectedFile) return;
     const newFile: TxtFile = {
-      path,
+      path: selectedFile.path,
       content: editor!.getHTML(), // get the current content from the editor
     };
     await saveTxtFile(newFile);
   };
-
+  useEffect(() => {
+    if (editor && selectedFile) {
+      editor.commands.setContent(selectedFile.content);
+    }
+  }, [selectedFile, editor]);
   useHotkeys([["mod+s", save]]);
+  if (!selectedFile) return <div>no file selected</div>;
+
   return (
-    <div style={{ height: "100vh", width:'100%' }}>
+    <div style={{ height: "100vh", width: "100%" }}>
       <RichTextEditor editor={editor} style={{ height: "100%" }}>
         <RichTextEditor.Toolbar sticky>
           <RichTextEditor.ControlsGroup>

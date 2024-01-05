@@ -1,14 +1,16 @@
 import { FC } from "react";
 
+import TextEditor from "../components/TextEditor";
 import { useFileStore } from "../stores/FileStore";
-
-import TextEditor from "../components/textEditor";
+import { FileExtension } from "../service/FileService";
+import CodeEditor from "../components/CodeEditor";
 interface TxtFileEditProps {}
 
 const TxtFileEdit: FC<TxtFileEditProps> = ({}) => {
   const { selectedFile } = useFileStore();
-
-  return selectedFile && <TextEditor content={selectedFile.content} path={selectedFile.path}/>;
+  if (!selectedFile) return <div>no file selected</div>;
+  if (FileExtension(selectedFile.path) === "txt") return <TextEditor />;
+  return <CodeEditor />;
 };
 
 export default TxtFileEdit;
