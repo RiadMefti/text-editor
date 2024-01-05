@@ -38,7 +38,8 @@ const File: FC<FileProps> = ({ file }) => {
         style={{
           display: "flex",
           alignItems: "center",
-          cursor: isDirectory ? "pointer" : "default",
+          cursor: isDirectory ? "pointer" : "pointer",
+          overflow: "hidden",
         }}
         onClick={toggleExpand}
       >
@@ -68,6 +69,7 @@ const SidePannel: FC<SidePannelProps> = ({}) => {
             padding: "2rem",
             backgroundColor: "#3335",
             height: "100vh",
+            overflow: "hidden",
           }}
         >
           <h2 style={{ marginBottom: "1rem" }}>{selectedFolder}</h2>

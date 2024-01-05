@@ -11,7 +11,7 @@ interface SidePannelStore {
   LoadFolder: () => Promise<void>; // Add handleClick to the interface
 }
 
-export const useSidePannelStore = create<SidePannelStore>((set, get) => ({
+export const useSidePannelStore = create<SidePannelStore>((set) => ({
   isOpen: true,
   toggle: () => set((state) => ({ isOpen: !state.isOpen })),
   selectedFolder: '',

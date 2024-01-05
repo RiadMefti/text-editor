@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { EditorState } from "@codemirror/state";
 import { javascript } from "@codemirror/lang-javascript";
 import { basicSetup, EditorView } from "codemirror";
@@ -23,7 +23,7 @@ const CodeEditor = () => {
   useEffect(() => {
     if (editorContainerRef.current && selectedFile) {
       const state = EditorState.create({
-        doc: selectedFile.content,
+        doc: selectedFile.content as string,
         extensions: [
           basicSetup,
           oneDark,

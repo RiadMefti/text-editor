@@ -1,5 +1,5 @@
 import { dialog, fs } from "@tauri-apps/api";
-import { TxtFile } from "../types/types";
+import { BinFile, TxtFile } from "../types/types";
 
 
 
@@ -28,9 +28,16 @@ export function FileExtension(file: string) {
 
 }
 
-export async function openFileFromPath(selectedFile: string): Promise<TxtFile | undefined> {
+export async function openFileFromPath(selectedFile: string): Promise<TxtFile | undefined | BinFile> {
 
-
+    const extention = FileExtension(selectedFile)
+    if (extention === 'png' || extention === 'jpg' || extention === 'jpeg' || extention === 'gif') {
+        const content = await fs.readBinaryFile(selectedFile as string)
+        return {
+            path: selectedFile as string,
+            content
+        } as BinFile
+    }
 
     const content = await fs.readTextFile(selectedFile as string)
     console.log(content)

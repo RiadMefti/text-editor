@@ -1,9 +1,9 @@
 import { create } from "zustand";
-import { TxtFile } from "../types/types";
+import { BinFile, TxtFile } from "../types/types";
 
 interface FileStore {
-    selectedFile: TxtFile | undefined;
-    setFile: (file: TxtFile) => void;
+    selectedFile: TxtFile | undefined | BinFile;
+    setFile: (file: TxtFile | BinFile) => void;
 }
 
 export const useFileStore = create<FileStore>((set) => ({
