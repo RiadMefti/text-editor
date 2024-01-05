@@ -1,0 +1,53 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Build and Release
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macOS-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Change to text-editor directory
+        run: cd text-editor
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install bun
+        run: npm install -g bun
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build
+        run: bun build
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Install Tauri CLI
+        run: npm install -g @tauri-apps/cli
+
+      - name: Build Tauri app
+        run: npx tauri build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: TauriApp-${{ matrix.os }}
+          path: text-editor/src-tauri/target/release/*.msi
+          if-no-files-found: error
