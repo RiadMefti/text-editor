@@ -16,9 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Change to text-editor directory
-        run: cd text-editor
-
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
