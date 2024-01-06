@@ -4,7 +4,7 @@ import { openFileFromPath } from "../service/FileService";
 import { IconFile } from "@tabler/icons-react";
 import { IconFolder } from "@tabler/icons-react";
 import { useFileStore } from "../stores/FileStore";
-
+import { Button } from "@mantine/core";
 interface SidePannelProps {}
 
 interface FileProps {
@@ -34,18 +34,21 @@ const File: FC<FileProps> = ({ file }) => {
   if (file.name === ".DS_Store") return <></>;
   return (
     <div style={{ padding: "0.2rem" }} onClick={openFile}>
-      <div
+      <Button
+        variant="subtle"
         style={{
           display: "flex",
           alignItems: "center",
           cursor: isDirectory ? "pointer" : "pointer",
           overflow: "hidden",
+          color:'white',
+          width:'100%'
         }}
         onClick={toggleExpand}
       >
         {isDirectory ? <IconFolder /> : <IconFile />}
         <span style={{ marginLeft: "0.5rem" }}>{file.name}</span>
-      </div>
+      </Button>
       {isDirectory && isExpanded && (
         <div style={{ marginLeft: "1rem" }}>
           {file.children.map((child: any, index: number) => (
