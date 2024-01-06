@@ -1,23 +1,37 @@
 import { dialog, fs } from "@tauri-apps/api";
-import { BinFile, TxtFile } from "../types/types";
+import { BinFile, OpenFile, TxtFile } from "../types/types";
 
 
 
-export async function openTxtFile(): Promise<TxtFile | undefined> {
+export async function openFile(): Promise<OpenFile | undefined> {
     const selectedFile = await dialog.open({
         multiple: false,
-        filters: [{
-            name: 'Texte',
-            extensions: ['txt']
-        }]
+
 
     })
     if (selectedFile) {
-        const content = await fs.readTextFile(selectedFile as string)
-        return {
+
+
+
+        let dirPath = "";
+
+        if (selectedFile.includes("/")) {
+            const dirPathArray = (selectedFile as string).split('/');
+            dirPath = dirPathArray.splice(0, dirPathArray.length - 1).join('/');
+        }
+        else {
+            const dirPathArray = (selectedFile as string).split('\\');
+            dirPath = dirPathArray.splice(0, dirPathArray.length - 1).join('\\');
+        }
+        const content = await openFileFromPath(selectedFile as string)
+        const file = {
             path: selectedFile as string,
             content
-        } as TxtFile
+        } as unknown as File;
+        return {
+            dir: dirPath,
+            file
+        } as unknown as OpenFile
 
     }
 }
@@ -63,6 +77,8 @@ export async function listAllFilesDir() {
     const selectDir = await dialog.open({
         multiple: false,
         directory: true,
+
+
     });
 
     if (selectDir) {
@@ -75,17 +91,20 @@ export async function listAllFilesDir() {
         };
     }
 
-    function processEntries(entries: any): any[] {
-        let files: any[] = [];
 
-        for (const entry of entries) {
-            if (entry.children) {
-                entry.children = processEntries(entry.children);
-            }
-            files.push(entry);
-        }
-
-        return files;
-    }
 }
 
+
+
+export function processEntries(entries: any): any[] {
+    let files: any[] = [];
+
+    for (const entry of entries) {
+        if (entry.children) {
+            entry.children = processEntries(entry.children);
+        }
+        files.push(entry);
+    }
+
+    return files;
+}

@@ -1,10 +1,10 @@
 import { CSSProperties, FC } from "react";
-import { IconFile } from "@tabler/icons-react";
+import { IconFile, IconPlus, IconFolder } from "@tabler/icons-react";
 import { Button } from "@mantine/core";
-
 
 import { useNavigate } from "react-router-dom";
 import { useSidePannelStore } from "../stores/SidePannelStore";
+import { openFile } from "../service/FileService";
 
 const landingStyles: CSSProperties = {
   display: "flex",
@@ -24,11 +24,14 @@ const simpleflex: CSSProperties = {
 interface LandingPageProps {}
 
 const LandingPage: FC<LandingPageProps> = ({}) => {
-
-  const { LoadFolder } = useSidePannelStore();
+  const { LoadFolder, LoadFile } = useSidePannelStore();
   const navigate = useNavigate();
-  const open = async () => {
+  const openFolder = async () => {
     await LoadFolder();
+    navigate("/txtFile");
+  };
+  const openFile = async () => {
+    await LoadFile();
     navigate("/txtFile");
   };
 
@@ -37,20 +40,26 @@ const LandingPage: FC<LandingPageProps> = ({}) => {
       <Button
         style={{ color: "white", height: "4rem" }}
         variant="transparent"
-        onMouseUp={open}
+        onMouseUp={openFolder}
       >
         <div style={simpleflex}>
-          <h1>Open</h1>
-          <IconFile size={"3rem"} />
+          <h1>Open Folder</h1>
+          <IconFolder size={"3rem"} />
         </div>
       </Button>
 
-      {/* <Button style={{ color: "white", height: "4rem" }} variant="transparent">
+      <Button
+        onClick={async () => {
+          await openFile();
+        }}
+        style={{ color: "white", height: "4rem" }}
+        variant="transparent"
+      >
         <div style={simpleflex}>
-          <h1>Create file</h1>
-          <IconPlus size={"3rem"} />
+          <h1>Open file</h1>
+          <IconFile size={"3rem"} />
         </div>
-      </Button> */}
+      </Button>
     </div>
   );
 };

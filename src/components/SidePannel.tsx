@@ -41,8 +41,8 @@ const File: FC<FileProps> = ({ file }) => {
           alignItems: "center",
           cursor: isDirectory ? "pointer" : "pointer",
           overflow: "hidden",
-          color:'white',
-          width:'100%'
+          color: "white",
+          width: "100%",
         }}
         onClick={toggleExpand}
       >
