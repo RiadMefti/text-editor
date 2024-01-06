@@ -4,7 +4,7 @@ import { Button } from "@mantine/core";
 
 import { useNavigate } from "react-router-dom";
 import { useSidePannelStore } from "../stores/SidePannelStore";
-import { openFile } from "../service/FileService";
+import { createNewFile, openFile } from "../service/FileService";
 
 const landingStyles: CSSProperties = {
   display: "flex",
@@ -37,6 +37,18 @@ const LandingPage: FC<LandingPageProps> = ({}) => {
 
   return (
     <div style={landingStyles}>
+      <Button
+        onClick={async () => {
+          await createNewFile();
+        }}
+        style={{ color: "white", height: "4rem" }}
+        variant="transparent"
+      >
+        <div style={simpleflex}>
+          <h1>Create file</h1>
+          <IconPlus size={"3rem"} />
+        </div>
+      </Button>
       <Button
         style={{ color: "white", height: "4rem" }}
         variant="transparent"

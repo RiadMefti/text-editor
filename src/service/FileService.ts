@@ -108,3 +108,27 @@ export function processEntries(entries: any): any[] {
 
     return files;
 }
+
+export async function createNewFile() {
+
+    try {
+        // Open a save file dialog
+        const path = await dialog.save();
+
+        if (path) {
+            // Write to the file selected by the user
+            await fs.writeFile({
+                path,
+                contents: '', // Replace with the content you want to write to the file
+            });
+
+            console.log('File created successfully');
+        } else {
+            console.log('No file selected');
+        }
+    } catch (error) {
+        console.error('Failed to create file:', error);
+    }
+
+
+}
