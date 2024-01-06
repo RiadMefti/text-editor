@@ -31,7 +31,7 @@ const File: FC<FileProps> = ({ file }) => {
       }
     }
   };
-
+  if (file.name === ".DS_Store") return <></>;
   return (
     <div style={{ padding: "0.2rem" }} onClick={openFile}>
       <div

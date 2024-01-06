@@ -21,6 +21,7 @@ export const useSidePannelStore = create<SidePannelStore>((set) => ({
   LoadFolder: async () => { // Add handleClick to the store
     const filesData = await listAllFilesDir();
     set({ files: filesData!.files });
-    set({ selectedFolder: filesData!.name.split('/').pop() });
+    const path = filesData!.name.replace(/\\/g, '/').split('/').pop();
+    set({ selectedFolder: path });
   },
 }));
