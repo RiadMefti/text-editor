@@ -9,7 +9,14 @@ const PageWithPannel: FC<PageWithPannelProps> = ({ page }) => {
   return (
     <div style={{ display: "flex" }}>
       <SidePannel />
-      {page}
+      <div
+        style={{
+          overflowY: "scroll",
+          width: "100%",
+        }}
+      >
+        {page}
+      </div>
     </div>
   );
 };
