@@ -16,7 +16,7 @@ const TxtFileEdit: FC<TxtFileEditProps> = ({}) => {
   const { toggle, selectedFolder, LoadFolder } = useSidePannelStore();
   const navigate = useNavigate();
   useWindowEvent("keydown", async (event) => {
-    console.log(event);
+   
     if (event.code === "KeyB" && (event.ctrlKey || event.metaKey)) {
       toggle();
     }

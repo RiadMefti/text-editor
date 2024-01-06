@@ -40,7 +40,7 @@ export async function openFileFromPath(selectedFile: string): Promise<TxtFile | 
     }
 
     const content = await fs.readTextFile(selectedFile as string)
-    console.log(content)
+
     return {
         path: selectedFile as string,
         content

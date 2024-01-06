@@ -50,11 +50,11 @@ const CodeEditor = () => {
     }
   }, [selectedFile]);
   useEffect(() => {
-    const saveAsync = async () => {
+    const autoSave = async () => {
       await save();
     };
 
-    saveAsync();
+    autoSave();
   }, [editorContent]);
   const save = async () => {
     const newFile: TxtFile = {

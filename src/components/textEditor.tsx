@@ -41,6 +41,14 @@ const TextEditor: FC<textEditorProps> = ({}) => {
       editor.commands.setContent(selectedFile.content);
     }
   }, [selectedFile, editor]);
+
+  useEffect(() => {
+    const autoSave = async () => {
+      await save();
+    };
+
+    autoSave();
+  }, [editor?.view.state]);
   useHotkeys([["mod+s", save]]);
   if (!selectedFile) return <div>no file selected</div>;
 
