@@ -13,3 +13,9 @@ export interface OpenFile {
     file: File;
 
 }
+
+export type Notification = {
+    message: string;
+    type: 'success' | 'error';
+    id: number;
+};
