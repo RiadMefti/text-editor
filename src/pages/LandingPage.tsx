@@ -1,18 +1,26 @@
 import { CSSProperties, FC } from "react";
-import { IconFile, IconPlus, IconFolder } from "@tabler/icons-react";
+import {
+  IconFile,
+  IconPlus,
+  IconFolder,
+  IconCommand,
+} from "@tabler/icons-react";
 import { Button } from "@mantine/core";
 
 import { useNavigate } from "react-router-dom";
 import { useSidePannelStore } from "../stores/SidePannelStore";
 import { createNewFile, openFile } from "../service/FileService";
+import useCommandPaletteStore from "../stores/CommandPaletteStore";
+import LandingTitle from "../components/landing-page/LandingTitle";
+import LandingActionButton from "../components/landing-page/LandingActionButton";
 
 const landingStyles: CSSProperties = {
   display: "flex",
   justifyContent: "center",
-
   height: "100%",
   flexDirection: "column",
   gap: "2rem",
+  alignItems: "center",
 };
 
 const simpleflex: CSSProperties = {
@@ -25,6 +33,8 @@ interface LandingPageProps {}
 
 const LandingPage: FC<LandingPageProps> = ({}) => {
   const { LoadFolder, LoadFile } = useSidePannelStore();
+  const { setOpenCommandPalette } = useCommandPaletteStore();
+
   const navigate = useNavigate();
   const openFolder = async () => {
     await LoadFolder();
@@ -37,41 +47,38 @@ const LandingPage: FC<LandingPageProps> = ({}) => {
 
   return (
     <div style={landingStyles}>
-      <Button
+      <div>
+        {" "}
+        <LandingTitle />
+      </div>
+      <LandingActionButton
+        icon={<IconPlus size="2rem" />}
         onClick={async () => {
           await createNewFile();
         }}
-        style={{ color: "white", height: "4rem" }}
-        variant="transparent"
-      >
-        <div style={simpleflex}>
-          <h1>Create file</h1>
-          <IconPlus size={"3rem"} />
-        </div>
-      </Button>
-      <Button
-        style={{ color: "white", height: "4rem" }}
-        variant="transparent"
-        onMouseUp={openFolder}
-      >
-        <div style={simpleflex}>
-          <h1>Open Folder</h1>
-          <IconFolder size={"3rem"} />
-        </div>
-      </Button>
-
-      <Button
+        title="new File"
+        shortcut="cmd+shift+C"
+      ></LandingActionButton>
+      <LandingActionButton
+        icon={<IconFolder size="2rem" />}
+        onClick={openFolder}
+        title="open Folder"
+        shortcut="cmd+O"
+      ></LandingActionButton>
+      <LandingActionButton
+        icon={<IconFile size="2rem" />}
         onClick={async () => {
           await openFile();
         }}
-        style={{ color: "white", height: "4rem" }}
-        variant="transparent"
-      >
-        <div style={simpleflex}>
-          <h1>Open file</h1>
-          <IconFile size={"3rem"} />
-        </div>
-      </Button>
+        title="open File"
+        shortcut="cmd+shift+O"
+      ></LandingActionButton>
+      <LandingActionButton
+        icon={<IconCommand size="2rem" />}
+        onClick={() => setOpenCommandPalette(true)}
+        title="Command Palette"
+        shortcut="cmd+P"
+      ></LandingActionButton>
     </div>
   );
 };

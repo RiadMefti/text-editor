@@ -20,10 +20,10 @@ const TxtFileEdit: FC<TxtFileEditProps> = ({}) => {
     if (event.code === "KeyB" && (event.ctrlKey || event.metaKey)) {
       toggle();
     }
-    if (event.code === "KeyO" && (event.ctrlKey || event.metaKey)) {
-      await LoadFolder();
-      navigate("/txtFile");
-    }
+    // if (event.code === "KeyO" && (event.ctrlKey || event.metaKey)) {
+    //   await LoadFolder();
+    //   navigate("/txtFile");
+    // }
   });
   useEffect(() => {
     if (!selectedFolder) {
