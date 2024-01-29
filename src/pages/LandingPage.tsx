@@ -1,24 +1,20 @@
 import { CSSProperties, FC } from "react";
-import { IconFile, IconPlus, IconFolder } from "@tabler/icons-react";
+import { IconFile, IconPlus, IconFolder,IconCommand } from "@tabler/icons-react";
 import { Button } from "@mantine/core";
 
 import { useNavigate } from "react-router-dom";
+import LandingActionButton from "../components/LandingPage/LandingActionButton";
+import LandingTitle from "../components/LandingPage/LandingTitle";
 
 const landingStyles: CSSProperties = {
   display: "flex",
   justifyContent: "center",
-
   height: "100%",
   flexDirection: "column",
   gap: "2rem",
+  alignItems: "center",
 };
 
-const simpleflex: CSSProperties = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: "1rem",
-};
 interface LandingPageProps {}
 
 const LandingPage: FC<LandingPageProps> = ({}) => {
@@ -32,39 +28,37 @@ const LandingPage: FC<LandingPageProps> = ({}) => {
 
   return (
     <div style={landingStyles}>
-      <Button
-        onClick={async () => {}}
-        style={{ color: "white", height: "4rem" }}
-        variant="transparent"
-      >
-        <div style={simpleflex}>
-          <h1>Create file</h1>
-          <IconPlus size={"3rem"} />
-        </div>
-      </Button>
-      <Button
-        style={{ color: "white", height: "4rem" }}
-        variant="transparent"
-        onMouseUp={openFolder}
-      >
-        <div style={simpleflex}>
-          <h1>Open Folder</h1>
-          <IconFolder size={"3rem"} />
-        </div>
-      </Button>
+      <div>
+        {" "}
+        <LandingTitle />
+      </div>
 
-      <Button
-        onClick={async () => {
-          await openFile();
-        }}
-        style={{ color: "white", height: "4rem" }}
-        variant="transparent"
-      >
-        <div style={simpleflex}>
-          <h1>Open file</h1>
-          <IconFile size={"3rem"} />
-        </div>
-      </Button>
+      <LandingActionButton
+        icon={<IconPlus size="2rem" />}
+        onClick={() => {}}
+        title="new File"
+        shortcut="cmd+shift+C"
+      ></LandingActionButton>
+
+      <LandingActionButton
+        icon={<IconFolder size="2rem" />}
+        onClick={openFolder}
+        title="open Folder"
+        shortcut="cmd+O"
+      ></LandingActionButton>
+
+      <LandingActionButton
+        icon={<IconFile size="2rem" />}
+        onClick={openFile}
+        title="open File"
+        shortcut="cmd+shift+O"
+      ></LandingActionButton>
+      <LandingActionButton 
+        icon={<IconCommand size="2rem" />}
+        onClick={openFile}
+        title="Command Palette"
+        shortcut="cmd+P"
+      ></LandingActionButton>
     </div>
   );
 };

@@ -6,11 +6,17 @@ interface ShortcutManagerProps {
 }
 
 const ShortcutManager: FC<ShortcutManagerProps> = ({ children }) => {
-  useHotkeys([
-    ["mod+J", () => console.log("Toggle color scheme")],
-    ["ctrl+K", () => console.log("Trigger search")],
-    ["alt+mod+shift+X", () => console.log("Rick roll")],
-  ]);
+  useHotkeys(
+    [
+      ["mod+shift+C", () => console.log("Create new file")],
+      ["mod+O", () => console.log("Create new directory")],
+      ["mod+shift+O", () => console.log("Open file")],
+      ["mod+s", () => console.log("Save file")],
+      ["shift+ tab", () => console.log("change tab")],
+      ["mod+P", () => console.log("Open command palette")],
+    ],
+    []
+  );
   return children as JSX.Element;
 };
 
