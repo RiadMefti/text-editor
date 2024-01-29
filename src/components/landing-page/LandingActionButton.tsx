@@ -8,7 +8,7 @@ const simpleflex: CSSProperties = {
   gap: "1rem",
 };
 
-const ButtonStyle: CSSProperties = { color: "white", cursor: "pointer"};
+const ButtonStyle: CSSProperties = { color: "white", cursor: "pointer" };
 
 const kbdStyle: CSSProperties = { margin: "0 0.5rem" }; // Add some margin to the Kbd component
 
@@ -23,7 +23,9 @@ const processShortcut = (shortcut: string) => {
   const keys = shortcut.split("+");
 
   return keys.map((key, index) => (
-    <Kbd style={kbdStyle}>{key}</Kbd> // Use the Kbd component directly
+    <Kbd key={index} style={kbdStyle}>
+      {key}
+    </Kbd> // Use the Kbd component directly
   ));
 };
 

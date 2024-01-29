@@ -1,10 +1,15 @@
 import { CSSProperties, FC } from "react";
-import { IconFile, IconPlus, IconFolder,IconCommand } from "@tabler/icons-react";
-import { Button } from "@mantine/core";
+import {
+  IconFile,
+  IconPlus,
+  IconFolder,
+  IconCommand,
+} from "@tabler/icons-react";
 
 import { useNavigate } from "react-router-dom";
-import LandingActionButton from "../components/LandingPage/LandingActionButton";
-import LandingTitle from "../components/LandingPage/LandingTitle";
+import LandingActionButton from "../components/landing-page/LandingActionButton";
+import LandingTitle from "../components/landing-page/LandingTitle";
+import useCommandPaletteStore from "../stores/CommandPaletteStore";
 
 const landingStyles: CSSProperties = {
   display: "flex",
@@ -18,6 +23,7 @@ const landingStyles: CSSProperties = {
 interface LandingPageProps {}
 
 const LandingPage: FC<LandingPageProps> = ({}) => {
+  const { setOpenCommandPalette } = useCommandPaletteStore();
   const navigate = useNavigate();
   const openFolder = async () => {
     navigate("/txtFile");
@@ -53,9 +59,9 @@ const LandingPage: FC<LandingPageProps> = ({}) => {
         title="open File"
         shortcut="cmd+shift+O"
       ></LandingActionButton>
-      <LandingActionButton 
+      <LandingActionButton
         icon={<IconCommand size="2rem" />}
-        onClick={openFile}
+        onClick={() => setOpenCommandPalette(true)}
         title="Command Palette"
         shortcut="cmd+P"
       ></LandingActionButton>
