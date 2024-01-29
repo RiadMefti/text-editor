@@ -1,9 +1,8 @@
 import { FC, useState } from "react";
-import { useSidePannelStore } from "../stores/SidePannelStore";
-import { openFileFromPath } from "../service/FileService";
+
 import { IconFile } from "@tabler/icons-react";
 import { IconFolder } from "@tabler/icons-react";
-import { useFileStore } from "../stores/FileStore";
+
 import { Button } from "@mantine/core";
 interface SidePannelProps {}
 
@@ -14,7 +13,6 @@ interface FileProps {
 const File: FC<FileProps> = ({ file }) => {
   const isDirectory = file.children && file.children.length > 0;
   const [isExpanded, setIsExpanded] = useState(false); // State to track if the folder is expanded
-  const { setFile } = useFileStore();
 
   const toggleExpand = () => {
     if (isDirectory) {
@@ -22,18 +20,9 @@ const File: FC<FileProps> = ({ file }) => {
     }
   };
 
-  const openFile = async () => {
-    if (!isDirectory && file.path) {
-      const newFile = await openFileFromPath(file.path);
-
-      if (newFile) {
-        setFile(newFile);
-      }
-    }
-  };
   if (file.name === ".DS_Store") return <></>;
   return (
-    <div style={{ padding: "0.2rem" }} onClick={openFile}>
+    <div style={{ padding: "0.2rem" }}>
       <Button
         variant="subtle"
         style={{
@@ -61,30 +50,20 @@ const File: FC<FileProps> = ({ file }) => {
 };
 
 const SidePannel: FC<SidePannelProps> = ({}) => {
-  const { isOpen, files, selectedFolder } = useSidePannelStore();
-
   return (
     <div>
-      {isOpen && (
-        <div
-          style={{
-            width: "20vw",
-            padding: "2rem",
-            backgroundColor: "#3335",
-            height: "100vh",
-            overflow: "hidden",
-          }}
-        >
-          <h2 style={{ marginBottom: "1rem" }}>{selectedFolder}</h2>
-          <div>
-            {files.length > 0 ? (
-              files.map((file, index) => <File key={index} file={file} />)
-            ) : (
-              <div>loading</div>
-            )}
-          </div>
-        </div>
-      )}
+      <div
+        style={{
+          width: "20vw",
+          padding: "2rem",
+          backgroundColor: "#3335",
+          height: "100vh",
+          overflow: "hidden",
+        }}
+      >
+        <h2 style={{ marginBottom: "1rem" }}>{}</h2>
+        <div></div>
+      </div>
     </div>
   );
 };

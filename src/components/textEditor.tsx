@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { getHotkeyHandler, useHotkeys } from "@mantine/hooks";
 import { RichTextEditor, Link } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
@@ -8,14 +8,12 @@ import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
-import { TxtFile } from "../types/types";
-import { saveTxtFile } from "../service/FileService";
-import { useFileStore } from "../stores/FileStore";
+
+
 interface textEditorProps {}
 
 const TextEditor: FC<textEditorProps> = ({}) => {
-  const { selectedFile } = useFileStore();
-
+  const [content, setContent] = useState<string>("");
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -26,31 +24,12 @@ const TextEditor: FC<textEditorProps> = ({}) => {
       Highlight,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
-    content: selectedFile?.content,
+    content: content,
   });
-  const save = async () => {
-    if (!selectedFile) return;
-    const newFile: TxtFile = {
-      path: selectedFile.path,
-      content: editor!.getHTML(), // get the current content from the editor
-    };
-    await saveTxtFile(newFile);
-  };
-  useEffect(() => {
-    if (editor && selectedFile) {
-      editor.commands.setContent(selectedFile.content);
-    }
-  }, [selectedFile, editor]);
 
-  useEffect(() => {
-    const autoSave = async () => {
-      await save();
-    };
+  useEffect(() => {}, [editor]);
 
-    autoSave();
-  }, [editor?.view.state]);
-  useHotkeys([["mod+s", save]]);
-  if (!selectedFile) return <div>no file selected</div>;
+  useEffect(() => {}, [editor?.view.state]);
 
   return (
     <div style={{ height: "100vh", width: "100%" }}>

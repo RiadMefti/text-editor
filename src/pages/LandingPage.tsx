@@ -3,8 +3,6 @@ import { IconFile, IconPlus, IconFolder } from "@tabler/icons-react";
 import { Button } from "@mantine/core";
 
 import { useNavigate } from "react-router-dom";
-import { useSidePannelStore } from "../stores/SidePannelStore";
-import { createNewFile, openFile } from "../service/FileService";
 
 const landingStyles: CSSProperties = {
   display: "flex",
@@ -24,23 +22,18 @@ const simpleflex: CSSProperties = {
 interface LandingPageProps {}
 
 const LandingPage: FC<LandingPageProps> = ({}) => {
-  const { LoadFolder, LoadFile } = useSidePannelStore();
   const navigate = useNavigate();
   const openFolder = async () => {
-    await LoadFolder();
     navigate("/txtFile");
   };
   const openFile = async () => {
-    await LoadFile();
     navigate("/txtFile");
   };
 
   return (
     <div style={landingStyles}>
       <Button
-        onClick={async () => {
-          await createNewFile();
-        }}
+        onClick={async () => {}}
         style={{ color: "white", height: "4rem" }}
         variant="transparent"
       >

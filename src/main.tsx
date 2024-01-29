@@ -8,6 +8,7 @@ import { MantineProvider } from "@mantine/core";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TxtFileEdit from "./pages/TxtFileEdit";
 import PageWithPannel from "./components/PageWithPannel";
+import ShortcutManager from "./service/ShortcutManager";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,8 +22,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <MantineProvider defaultColorScheme="dark">
-      <RouterProvider router={router} />
-    </MantineProvider>
+    <ShortcutManager>
+      <MantineProvider defaultColorScheme="dark">
+        <RouterProvider router={router} />
+      </MantineProvider>
+    </ShortcutManager>
   </React.StrictMode>
 );
