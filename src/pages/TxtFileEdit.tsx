@@ -13,7 +13,7 @@ interface TxtFileEditProps {}
 
 const TxtFileEdit: FC<TxtFileEditProps> = ({}) => {
   const { selectedFile } = useFileStore();
-  const { toggle, selectedFolder, LoadFolder } = useSidePannelStore();
+  const { toggle, selectedFolder } = useSidePannelStore();
   const navigate = useNavigate();
   useWindowEvent("keydown", async (event) => {
    

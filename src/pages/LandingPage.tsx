@@ -5,11 +5,9 @@ import {
   IconFolder,
   IconCommand,
 } from "@tabler/icons-react";
-import { Button } from "@mantine/core";
-
 import { useNavigate } from "react-router-dom";
 import { useSidePannelStore } from "../stores/SidePannelStore";
-import { createNewFile, openFile } from "../service/FileService";
+import { createNewFile } from "../service/FileService";
 import useCommandPaletteStore from "../stores/CommandPaletteStore";
 import LandingTitle from "../components/landing-page/LandingTitle";
 import LandingActionButton from "../components/landing-page/LandingActionButton";
@@ -23,12 +21,6 @@ const landingStyles: CSSProperties = {
   alignItems: "center",
 };
 
-const simpleflex: CSSProperties = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: "1rem",
-};
 interface LandingPageProps {}
 
 const LandingPage: FC<LandingPageProps> = ({}) => {
