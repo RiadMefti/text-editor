@@ -11,7 +11,7 @@ const ImageEditor: FC<ImageEditorProps> = ({}) => {
   const [src, setSrc] = useState<string>("");
 
   useEffect(() => {
-    const blob = new Blob([selectedFile?.content as Uint8Array], {
+    const blob = new Blob([new Uint8Array(selectedFile?.content as Uint8Array)], {
       type: `image/${FileExtension(selectedFile?.path as string)}`,
     });
     const url = URL.createObjectURL(blob);
